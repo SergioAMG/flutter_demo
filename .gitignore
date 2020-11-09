@@ -22,7 +22,6 @@ packages
 pubspec.lock
 .flutter-plugins
 .dart_tool/
-.dart_tool/package_config.json
 
 .vscode/*
 !.vscode/settings.json
