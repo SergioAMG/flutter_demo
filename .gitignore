@@ -21,7 +21,6 @@ ios/.generated/
 packages
 pubspec.lock
 .flutter-plugins
-.dart_tool/
 
 .vscode/*
 !.vscode/settings.json
