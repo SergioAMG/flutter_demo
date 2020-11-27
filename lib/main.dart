@@ -32,7 +32,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void _updateText() {
     setState(() {
       _textMessage =
-          "Text has been Changed " + _counterOfChanges.toString() + ' times.';
+          "Text has been changed " + _counterOfChanges.toString() + ' times.';
       print(
           'Text has been changed: ' + _counterOfChanges.toString() + ' times.');
       _counterOfChanges++;
@@ -51,7 +51,10 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(
+          widget.title,
+          style: TextStyle(color: Colors.white),
+        ),
       ),
       body: Center(
         child: Column(

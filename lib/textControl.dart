@@ -30,7 +30,7 @@ class TextControl extends StatelessWidget {
             child: RaisedButton(
               onPressed: resetText,
               child: Text('Reset Text'),
-              color: Colors.deepOrange,
+              color: Colors.lightBlue,
               textColor: Colors.white,
             ),
           ),
