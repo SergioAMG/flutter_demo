@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './textControl.dart';
+import './widgets/new_transaction.dart';
 
 void main() => runApp(MyApp());
 
@@ -7,12 +7,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Assignment One',
+      title: 'Administrador de Gastos Personales',
       theme: ThemeData(
-        primarySwatch: Colors.orange,
+        primarySwatch: Colors.green,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Flutter Assignment One'),
+      home: MyHomePage(title: 'Administrador de Gastos Personales'),
     );
   }
 }
@@ -26,27 +26,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String _textMessage = 'Welcome to Flutter Assignment';
-  int _counterOfChanges = 1;
-
-  void _updateText() {
-    setState(() {
-      _textMessage =
-          "Text has been changed " + _counterOfChanges.toString() + ' times.';
-      print(
-          'Text has been changed: ' + _counterOfChanges.toString() + ' times.');
-      _counterOfChanges++;
-    });
-  }
-
-  void _resetText() {
-    setState(() {
-      _textMessage = 'Welcome to Flutter Assignment';
-      _counterOfChanges = 1;
-      print('Text has been reset');
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,23 +37,42 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Container(
-              margin: EdgeInsets.fromLTRB(0, 10, 0, 30),
+              margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
               child: Text(
-                _textMessage,
+                'Bienvenido a sus Gastos',
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
-                    color: Colors.orange),
+                    color: Colors.green),
               ),
             ),
-            TextControl(
-              updateText: _updateText,
-              resetText: _resetText,
-              counterOfChanges: _counterOfChanges,
+            Container(
+              margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
+              width: double.infinity,
+              height: 130,
+              color: Colors.green.shade100,
+              child: Text(''),
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.fromLTRB(10, 10, 0, 0),
+                  child: Text(
+                    'Ultimas entradas:',
+                    style: TextStyle(
+                      fontWeight: FontWeight.normal,
+                      fontSize: 18,
+                      color: Colors.black,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            NewTransaction(),
           ],
         ),
       ),
