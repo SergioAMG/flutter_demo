@@ -34,6 +34,9 @@ class _MyHomePageState extends State<MyHomePage> {
           widget.title,
           style: TextStyle(color: Colors.white),
         ),
+        actions: <Widget>[
+          IconButton(icon: Icon(Icons.add), onPressed: () {}),
+        ],
       ),
       body: Center(
         child: Column(
@@ -62,7 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Container(
                   margin: EdgeInsets.fromLTRB(10, 10, 0, 0),
                   child: Text(
-                    'Ultimas entradas:',
+                    'Agregar entradas:',
                     style: TextStyle(
                       fontWeight: FontWeight.normal,
                       fontSize: 18,
@@ -75,6 +78,12 @@ class _MyHomePageState extends State<MyHomePage> {
             NewTransaction(),
           ],
         ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () {},
+        backgroundColor: Colors.green.shade400,
       ),
     );
   }

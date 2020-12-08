@@ -36,8 +36,11 @@ class _NewTransactionState extends State<NewTransaction> {
         AddTransaction(
           addNewTransaction: _addNewTransaction,
         ),
-        TransactionList(
-          transactions: transactions,
+        Container(
+          height: 200,
+          child: TransactionList(
+            transactions: transactions,
+          ),
         ),
       ],
     );
