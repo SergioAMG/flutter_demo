@@ -17,19 +17,22 @@ class TransactionList extends StatelessWidget {
             child: Row(
               children: <Widget>[
                 Container(
+                  width: 110,
                   padding: EdgeInsets.all(25),
                   decoration: BoxDecoration(
                     border: Border.all(
                       width: 3,
-                      color: Colors.green,
+                      color: Theme.of(context).primaryColor,
                     ),
                   ),
-                  child: Text(
-                    '\$' + transactions[index].amount.toStringAsFixed(2),
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15,
-                      color: Colors.black,
+                  child: Center(
+                    child: Text(
+                      '\$' + transactions[index].amount.toStringAsFixed(2),
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15,
+                        color: Theme.of(context).primaryColor,
+                      ),
                     ),
                   ),
                 ),
@@ -39,18 +42,10 @@ class TransactionList extends StatelessWidget {
                     children: <Widget>[
                       Text(
                         transactions[index].title,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                          fontSize: 15,
-                        ),
+                        style: Theme.of(context).textTheme.bodyText1,
                       ),
-                      Text(
-                        DateFormat().format(transactions[index].date),
-                        style: TextStyle(
-                            fontWeight: FontWeight.normal,
-                            color: Colors.orange.shade600),
-                      ),
+                      Text(DateFormat().format(transactions[index].date),
+                          style: Theme.of(context).textTheme.bodyText2),
                     ],
                   ),
                   padding: EdgeInsets.fromLTRB(10, 20, 10, 20),
