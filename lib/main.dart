@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import './widgets/transactions_list.dart';
 import './widgets/add_transaction.dart';
+import './widgets/chart.dart';
 import './models/transaction.dart';
+import 'package:intl/intl.dart';
 
 void main() => runApp(MyApp());
 
@@ -49,13 +51,27 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final DateTime currentDate = DateTime.now();
+
   final List<Transaction> transactions = [
     Transaction(
         id: 'Trans01',
         title: 'Comida en Restaurante',
         amount: 29.99,
         date: DateTime.now()),
+    Transaction(
+      id: 'Trans02',
+      title: 'Hopedaje en Hotel',
+      amount: 38.99,
+      date: DateTime.now().subtract(
+        Duration(days: 1),
+      ),
+    ),
   ];
+
+  List<Transaction> get _filteredTransactions {
+    return transactions;
+  }
 
   void _addNewTransaction(String title, double amount) {
     final newTransaction = Transaction(
@@ -69,12 +85,22 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void _clearTransactions() {
+    setState(() {
+      transactions.clear();
+    });
+  }
+
   void _openAddTransaction(BuildContext buildContext) {
     showModalBottomSheet(
         context: buildContext,
-        builder: (_) {
-          return AddTransaction(
-            addNewTransaction: _addNewTransaction,
+        isScrollControlled: true,
+        builder: (BuildContext context) {
+          return Padding(
+            padding: MediaQuery.of(context).viewInsets,
+            child: AddTransaction(
+              addNewTransaction: _addNewTransaction,
+            ),
           );
         });
   }
@@ -89,8 +115,10 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.admin_panel_settings_sharp),
-            onPressed: () {},
+            icon: Icon(
+              Icons.delete,
+            ),
+            onPressed: _clearTransactions,
           ),
           IconButton(
             icon: Icon(Icons.add),
@@ -98,53 +126,52 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Container(
-              margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
-              child: Text(
-                'Bienvenido a sus Gastos',
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                    color: Theme.of(context).primaryColor),
-              ),
-            ),
-            Container(
-              margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
-              width: double.infinity,
-              height: 130,
-              color: Theme.of(context).secondaryHeaderColor,
-              child: Text(''),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Container(
-                  margin: EdgeInsets.fromLTRB(10, 15, 0, 0),
-                  child: Text('Ultimas entradas:',
-                      style: Theme.of(context).textTheme.bodyText1),
+      backgroundColor: Colors.white,
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                child: Text(
+                  'Bienvenido a sus Gastos',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      color: Theme.of(context).primaryColor),
                 ),
-                Container(
-                  margin: EdgeInsets.fromLTRB(0, 15, 15, 0),
-                  child: Text('08/12/2020',
-                      style: Theme.of(context).textTheme.bodyText1),
-                ),
-              ],
-            ),
-            Container(
-              padding: EdgeInsets.only(top: 5),
-              height: 350,
-              child: TransactionList(
-                transactions: transactions,
               ),
-            ),
-          ],
+              Chart(
+                recentTransactions: _filteredTransactions,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Container(
+                    margin: EdgeInsets.fromLTRB(10, 15, 0, 0),
+                    child: Text('Ultimas entradas:',
+                        style: Theme.of(context).textTheme.bodyText1),
+                  ),
+                  Container(
+                    margin: EdgeInsets.fromLTRB(0, 15, 15, 0),
+                    child: Text(DateFormat('dd/MMM/yyyy').format(currentDate),
+                        style: Theme.of(context).textTheme.bodyText1),
+                  ),
+                ],
+              ),
+              Container(
+                margin: EdgeInsets.only(top: 5),
+                padding: EdgeInsets.symmetric(horizontal: 8),
+                child: TransactionList(
+                  transactions: transactions,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () => _openAddTransaction(context),

@@ -27,33 +27,31 @@ class _AddTransactionState extends State<AddTransaction> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 200,
+      padding: EdgeInsets.symmetric(horizontal: 10),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          Container(
-            padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-            child: TextField(
-              decoration: InputDecoration(
-                  labelText: 'Monto',
-                  labelStyle: TextStyle(color: Colors.black)),
-              controller: transactionAmountController,
-              keyboardType: TextInputType.number,
-              // For iOS: TextInputType.numberWithOptions(decimal:true)
-              //onSubmitted: (_) => submitForm(),
-            ),
+          TextField(
+            decoration: InputDecoration(
+                labelText: 'Monto',
+                labelStyle: TextStyle(color: Colors.black),
+                hintText: '0.00'),
+            controller: transactionAmountController,
+            keyboardType: TextInputType.number,
+            // For iOS: TextInputType.numberWithOptions(decimal:true)
+            //onSubmitted: (_) => submitForm(),
+          ),
+          TextField(
+            decoration: InputDecoration(
+                labelText: 'Descripcion del Gasto',
+                labelStyle: TextStyle(color: Colors.black),
+                hintText: 'text ...'),
+            controller: transactionDescriptionController,
+            keyboardType: TextInputType.text,
+            //onSubmitted: (_) => submitForm(),
           ),
           Container(
-            padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-            child: TextField(
-              decoration: InputDecoration(
-                  labelText: 'Descripcion del Gasto',
-                  labelStyle: TextStyle(color: Colors.black)),
-              controller: transactionDescriptionController,
-              //onSubmitted: (_) => submitForm(),
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+            padding: EdgeInsets.fromLTRB(20, 10, 0, 10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
