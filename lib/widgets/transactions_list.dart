@@ -24,7 +24,7 @@ class TransactionList extends StatelessWidget {
               ),
               (MediaQuery.of(context).size.height > 800)
                   ? Container(
-                      height: 500,
+                      height: 400,
                       child: Image.asset(
                         'assets/images/mobileappconcept.jpg',
                         fit: BoxFit.fitHeight,

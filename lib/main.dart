@@ -62,15 +62,21 @@ class _MyHomePageState extends State<MyHomePage> {
     Transaction(
       id: 'Trans02',
       title: 'Hopedaje en Hotel',
-      amount: 38.99,
+      amount: 38.989,
       date: DateTime.now().subtract(
-        Duration(days: 1),
+        Duration(days: 6),
       ),
     ),
   ];
 
   List<Transaction> get _filteredTransactions {
-    return transactions;
+    return transactions.where((element) {
+      return element.date.isAfter(
+        DateTime.now().subtract(
+          Duration(days: 7),
+        ),
+      );
+    }).toList();
   }
 
   void _addNewTransaction(String title, double amount) {
@@ -164,7 +170,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 margin: EdgeInsets.only(top: 5),
                 padding: EdgeInsets.symmetric(horizontal: 8),
                 child: TransactionList(
-                  transactions: transactions,
+                  transactions: _filteredTransactions,
                 ),
               ),
             ],

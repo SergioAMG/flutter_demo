@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import '../models/transaction.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter/material.dart';
 
 class Chart extends StatelessWidget {
   final List<Transaction> recentTransactions;
@@ -37,10 +38,16 @@ class Chart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print(groupedTransactions);
-    return Container(
-      child: SizedBox(
-        height: 150,
-        width: double.infinity,
+    return Card(
+      elevation: 10,
+      child: Row(
+        children: groupedTransactions.map((e) {
+          return Text(
+            e['day'].toString().substring(0, 1) +
+                ':' +
+                double.parse(e['amount'].toString()).toStringAsFixed(2),
+          );
+        }).toList(),
       ),
     );
   }
