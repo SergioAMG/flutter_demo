@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import '../models/transaction.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
+import 'chart_bar.dart';
 
 class Chart extends StatelessWidget {
   final List<Transaction> recentTransactions;
@@ -25,27 +26,36 @@ class Chart extends StatelessWidget {
         }
       }
 
-      print('DayOfWeek:' + DateFormat.E().format(weekDay).toString());
-      print('Amount:' + totalSumAmount.toString());
-
       return {
         'day': DateFormat.E().format(weekDay).toString(),
         'amount': totalSumAmount.toString(),
       };
+    }).reversed.toList();
+  }
+
+  double get totalSpending {
+    return groupedTransactions.fold(0.00, (previousValue, element) {
+      return previousValue + double.parse(element['amount']);
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    print(groupedTransactions);
     return Card(
       elevation: 10,
       child: Row(
-        children: groupedTransactions.map((e) {
-          return Text(
-            e['day'].toString().substring(0, 1) +
-                ':' +
-                double.parse(e['amount'].toString()).toStringAsFixed(2),
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: groupedTransactions.map((element) {
+          return ChartBar(
+            label: element['day'].toString(),
+            spendingAmount: double.parse(element['amount']),
+            spendingPercentageOfTotal: totalSpending == 0.00
+                ? 0.00
+                : (double.parse(element['amount']) / totalSpending),
+            isFirstElement: element['day'].toString() ==
+                    DateFormat.E().format(DateTime.now()).toString()
+                ? true
+                : false,
           );
         }).toList(),
       ),

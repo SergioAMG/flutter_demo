@@ -19,9 +19,9 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
         textTheme: ThemeData.light().textTheme.copyWith(
               bodyText1: TextStyle(
-                fontSize: 17,
-                fontFamily: 'Raleway',
-              ),
+                  fontSize: 17,
+                  fontFamily: 'Raleway',
+                  fontWeight: FontWeight.bold),
               bodyText2: TextStyle(
                 fontSize: 15,
                 fontFamily: 'Raleway',
@@ -91,6 +91,12 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void _deleteTransaction(Transaction transaction) {
+    setState(() {
+      transactions.remove(transaction);
+    });
+  }
+
   void _clearTransactions() {
     setState(() {
       transactions.clear();
@@ -139,7 +145,7 @@ class _MyHomePageState extends State<MyHomePage> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               Container(
-                margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                margin: EdgeInsets.fromLTRB(0, 10, 0, 10),
                 child: Text(
                   'Bienvenido a sus Gastos',
                   style: TextStyle(
@@ -171,6 +177,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: EdgeInsets.symmetric(horizontal: 8),
                 child: TransactionList(
                   transactions: _filteredTransactions,
+                  deleteTransaction: _deleteTransaction,
                 ),
               ),
             ],

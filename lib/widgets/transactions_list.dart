@@ -4,7 +4,9 @@ import '../models/transaction.dart';
 
 class TransactionList extends StatelessWidget {
   final List<Transaction> transactions;
-  TransactionList({this.transactions});
+  final Function deleteTransaction;
+
+  TransactionList({this.transactions, this.deleteTransaction});
 
   @override
   Widget build(BuildContext context) {
@@ -39,57 +41,49 @@ class TransactionList extends StatelessWidget {
                     ),
             ],
           )
-        : Column(
-            children: transactions.map((transaction) {
-              return Container(
-                margin: EdgeInsets.symmetric(vertical: 5, horizontal: 0),
-                child: Card(
-                  elevation: 10,
-                  child: Row(
-                    children: <Widget>[
-                      Container(
-                        width: 110,
-                        padding: EdgeInsets.all(25),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            width: 3,
-                            color: Theme.of(context).primaryColor,
-                          ),
-                        ),
-                        child: Center(
-                          child: Text(
-                            '\$' + transaction.amount.toStringAsFixed(2),
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15,
-                              color: Theme.of(context).primaryColor,
+        : Container(
+            height: 300,
+            child: ListView.builder(
+              itemCount: transactions.length,
+              itemBuilder: (context, index) {
+                return Container(
+                  margin: EdgeInsets.symmetric(vertical: 5, horizontal: 0),
+                  child: Card(
+                    elevation: 10,
+                    child: ListTile(
+                      leading: CircleAvatar(
+                        radius: 30,
+                        child: Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: FittedBox(
+                            child: Text(
+                              '\$${transactions[index].amount.toStringAsFixed(2)}',
                             ),
                           ),
                         ),
                       ),
-                      Container(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            SizedBox(
-                              width: 250,
-                              child: Text(
-                                transaction.title,
-                                style: Theme.of(context).textTheme.bodyText1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                            Text(DateFormat().format(transaction.date),
-                                style: Theme.of(context).textTheme.bodyText2),
-                          ],
-                        ),
-                        padding: EdgeInsets.fromLTRB(10, 20, 10, 20),
+                      title: Text(
+                        '${transactions[index].title}',
+                        style: Theme.of(context).textTheme.bodyText1,
+                        overflow: TextOverflow.ellipsis,
                       ),
-                    ],
+                      subtitle: Text(
+                        DateFormat().format(transactions[index].date),
+                        style: Theme.of(context).textTheme.bodyText2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      trailing: IconButton(
+                        icon: Icon(
+                          Icons.delete,
+                          color: Colors.red.shade700,
+                        ),
+                        onPressed: () => deleteTransaction(transactions[index]),
+                      ),
+                    ),
                   ),
-                ),
-              );
-            }).toList(),
+                );
+              },
+            ),
           );
   }
 }
