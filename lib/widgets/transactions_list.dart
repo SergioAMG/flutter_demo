@@ -42,7 +42,7 @@ class TransactionList extends StatelessWidget {
             ],
           )
         : Container(
-            height: 300,
+            height: 500,
             child: ListView.builder(
               itemCount: transactions.length,
               itemBuilder: (context, index) {
@@ -54,7 +54,7 @@ class TransactionList extends StatelessWidget {
                       leading: CircleAvatar(
                         radius: 30,
                         child: Padding(
-                          padding: const EdgeInsets.all(10),
+                          padding: EdgeInsets.all(10),
                           child: FittedBox(
                             child: Text(
                               '\$${transactions[index].amount.toStringAsFixed(2)}',
@@ -75,7 +75,7 @@ class TransactionList extends StatelessWidget {
                       trailing: IconButton(
                         icon: Icon(
                           Icons.delete,
-                          color: Colors.red.shade700,
+                          color: Theme.of(context).errorColor,
                         ),
                         onPressed: () => deleteTransaction(transactions[index]),
                       ),

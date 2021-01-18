@@ -52,7 +52,7 @@ class Chart extends StatelessWidget {
             spendingPercentageOfTotal: totalSpending == 0.00
                 ? 0.00
                 : (double.parse(element['amount']) / totalSpending),
-            isFirstElement: element['day'].toString() ==
+            isToday: element['day'].toString() ==
                     DateFormat.E().format(DateTime.now()).toString()
                 ? true
                 : false,

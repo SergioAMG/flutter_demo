@@ -79,16 +79,17 @@ class _MyHomePageState extends State<MyHomePage> {
     }).toList();
   }
 
-  void _addNewTransaction(String title, double amount) {
+  void _addNewTransaction(String title, double amount, DateTime selectedDate) {
     final newTransaction = Transaction(
-      id: '001',
+      id: '001:${selectedDate.toString()}',
       title: title,
       amount: amount,
-      date: DateTime.now(),
+      date: selectedDate,
     );
     setState(() {
       transactions.add(newTransaction);
     });
+    print('Id created: ${newTransaction.id}');
   }
 
   void _deleteTransaction(Transaction transaction) {
@@ -151,7 +152,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
-                      color: Theme.of(context).primaryColor),
+                      color: Theme.of(context).textTheme.headline6.color),
                 ),
               ),
               Chart(
@@ -163,12 +164,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   Container(
                     margin: EdgeInsets.fromLTRB(10, 15, 0, 0),
                     child: Text('Ultimas entradas:',
-                        style: Theme.of(context).textTheme.bodyText1),
+                        style: Theme.of(context).textTheme.bodyText2),
                   ),
                   Container(
                     margin: EdgeInsets.fromLTRB(0, 15, 15, 0),
                     child: Text(DateFormat('dd/MMM/yyyy').format(currentDate),
-                        style: Theme.of(context).textTheme.bodyText1),
+                        style: Theme.of(context).textTheme.bodyText2),
                   ),
                 ],
               ),

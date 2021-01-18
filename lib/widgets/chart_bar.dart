@@ -4,13 +4,13 @@ class ChartBar extends StatelessWidget {
   final String label;
   final double spendingAmount;
   final double spendingPercentageOfTotal;
-  final bool isFirstElement;
+  final bool isToday;
 
   ChartBar(
       {this.label,
       this.spendingAmount,
       this.spendingPercentageOfTotal,
-      this.isFirstElement});
+      this.isToday});
 
   @override
   Widget build(BuildContext context) {
@@ -32,12 +32,15 @@ class ChartBar extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                 ),
               ),
-              FractionallySizedBox(
-                heightFactor: spendingPercentageOfTotal,
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor,
-                    borderRadius: BorderRadius.circular(10),
+              Container(
+                alignment: Alignment.bottomCenter,
+                child: FractionallySizedBox(
+                  heightFactor: spendingPercentageOfTotal,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColor,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                   ),
                 ),
               ),
@@ -50,9 +53,9 @@ class ChartBar extends StatelessWidget {
         Text(
           label,
           style: TextStyle(
-              color: !isFirstElement
+              color: !isToday
                   ? Theme.of(context).primaryColor
-                  : Colors.black,
+                  : Colors.grey.shade700,
               fontWeight: FontWeight.bold),
         ),
       ],
