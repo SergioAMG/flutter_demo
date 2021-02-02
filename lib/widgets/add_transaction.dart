@@ -44,6 +44,7 @@ class _AddTransactionState extends State<AddTransaction> {
       }
       setState(() {
         _userSelectedDate = value;
+        FocusScope.of(context).unfocus();
       });
     });
   }
