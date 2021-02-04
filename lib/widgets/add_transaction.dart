@@ -18,16 +18,27 @@ class _AddTransactionState extends State<AddTransaction> {
   void _submitForm() {
     if (_transactionAmountController.text.isEmpty) return;
 
-    final _amount = double.parse(_transactionAmountController.text);
+    final double _amount = double.parse(_transactionAmountController.text);
 
     if (_transactionDescriptionController.text.isEmpty ||
         _amount < 1 ||
         _userSelectedDate == null) return;
 
+    final DateTime _dateAndTime = new DateTime(
+      _userSelectedDate.year,
+      _userSelectedDate.month,
+      _userSelectedDate.day,
+      DateTime.now().hour,
+      DateTime.now().minute,
+      DateTime.now().second,
+      DateTime.now().millisecond,
+      DateTime.now().microsecond,
+    );
+
     widget.addNewTransaction(
       _transactionDescriptionController.text,
       _amount,
-      _userSelectedDate,
+      _dateAndTime,
     );
     Navigator.of(context).pop();
   }

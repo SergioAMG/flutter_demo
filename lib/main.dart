@@ -51,16 +51,14 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final DateTime currentDate = DateTime.now();
-
-  final List<Transaction> transactions = [
+  List<Transaction> _transactions = [
     Transaction(
-        id: 'Trans01',
+        id: DateTime.now().toUtc().toString(),
         title: 'Comida en Restaurante',
         amount: 29.99,
         date: DateTime.now()),
     Transaction(
-      id: 'Trans02',
+      id: DateTime.now().toUtc().toString(),
       title: 'Hopedaje en Hotel',
       amount: 38.989,
       date: DateTime.now().subtract(
@@ -70,7 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
   ];
 
   List<Transaction> get _filteredTransactions {
-    return transactions.where((element) {
+    return _transactions.where((element) {
       return element.date.isAfter(
         DateTime.now().subtract(
           Duration(days: 7),
@@ -81,27 +79,33 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _addNewTransaction(String title, double amount, DateTime selectedDate) {
     final newTransaction = Transaction(
-      id: '001:${selectedDate.toString()}',
+      id: selectedDate.toUtc().toString(),
       title: title,
       amount: amount,
       date: selectedDate,
     );
+
     setState(() {
-      transactions.add(newTransaction);
+      _transactions.add(newTransaction);
     });
-    print('Id created: ${newTransaction.id}');
+
+    print('Transaction created with id : ${newTransaction.id}');
   }
 
   void _deleteTransaction(Transaction transaction) {
     setState(() {
-      transactions.remove(transaction);
+      _transactions.remove(transaction);
     });
+
+    print('Transaction deleted with id : ${transaction.id}');
   }
 
   void _clearTransactions() {
     setState(() {
-      transactions.clear();
+      _transactions.clear();
     });
+
+    print('Transactions cleared.');
   }
 
   void _openAddTransaction(BuildContext buildContext) {
@@ -168,7 +172,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   Container(
                     margin: EdgeInsets.fromLTRB(0, 15, 15, 0),
-                    child: Text(DateFormat('dd/MMM/yyyy').format(currentDate),
+                    child: Text(
+                        DateFormat('dd/MMM/yyyy').format(DateTime.now()),
                         style: Theme.of(context).textTheme.bodyText2),
                   ),
                 ],
